@@ -1,33 +1,60 @@
 #include <iostream>
-#include <string>
+#include <vector>
 using namespace std;
-#define MAX(a ,b) ((a) > (b) ? (a) : (b))
 
-inline int my_max(int a, int b) {
-	return (a > b) ? a : b;
+void input_vector(vector<int>& v) {
+    int x;
+    cin >> x;
+
+    while(x != 0) {
+        v.push_back(x);
+        cin >> x;
+    }
 }
 
-template <typename T>
-	inline T my_max1(T a, T b) {
-		return (a > b) ? a : b;
-	}
+void print_vector(const vector<int>& v) {
+    for (int x : v) {
+        cout << x << " ";
+        cout << endl;
+    }
+}
 
 int main() {
-	int a = MAX(3, 5);
-	int b = 2 * MAX(3, 5);
-	int c = MAX(3, 5) + 1;
-	int i = 3;
-	int d = my_max(++i, 2);
+    vector<int> v;
 
-	cout << "rezultat: " << d << " i " << i << endl;
+    cout << "Unesi brojeve: ";
 
-	cout << "int max: " << my_max1(1, 2) << endl;
+    input_vector(v);
 
-	cout << "double max: " << my_max1(1.1, 2.2) << endl;
+    cout << "Vektor: ";
+    print_vector(v);
 
-	cout << "char max: " << my_max1('a', 'b') << endl;
+    cout << "Obrnuto: ";
+    for (auto it = v.rbegin(); it != v.rend(); ++it)
+        cout << *it << " ";
+    cout << endl;
 
-	cout << "string max: " << my_max1("aa", "bb") << endl;
+    vector<int> a;
 
-	return 0;
+    for(int i = 1; i <= 20; i++) {
+        a.push_back(i);
+        cout << "size = " << a.size()
+        << ", capacity = " << a.capacity() << endl;
+    }
+
+    vector<int> b;
+    b.reserve(100);
+
+    for(int i = 1; i <= 20; i++) {
+        b.push_back(i);
+        cout << "size = " << b.size()
+        << ", capacity = " << b.capacity() << endl;
+    }
+
+    b.shrink_to_fit();
+
+    cout << "Kapacitet nakon shrink_to_fit: "
+    << b.capacity() << endl;
+
+    return 0;
 }
